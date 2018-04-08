@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "Spoof IP LAN por ARP. Identificamos nuestros interfaces nuestra IP y la IP a sumplantar"
-echo "Uso: sh arpspoof.sh eth0 192.168.1.252 192.168.1.250"
+echo "Uso: ./arpspoof.sh eth0 192.168.1.252 192.168.1.250"
 
 # Activamos IP forwarding
 echo 1 > /proc/sys/net/ipv4/ip_forward
