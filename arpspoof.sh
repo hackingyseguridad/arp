@@ -14,7 +14,7 @@ PID2=$!
 echo "Para parar pulsa cualquier tecla..."
 read
 
-# Stop
+# Parar
 kill -9 $PID1 $PID2
 echo 0 > /proc/sys/net/ipv4/ip_forward
 
