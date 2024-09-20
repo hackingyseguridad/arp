@@ -1,3 +1,4 @@
+#!/bin/bash
 # Cambio de MAC Address en periferico de red
 # ifconfig eth0 hw ether 00:e0:4c:53:44:58
 # Otra opcion es con macchanger
