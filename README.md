@@ -214,6 +214,3 @@ Señales típicas de un ataque en curso: pérdida intermitente de conectividad, 
 #
 http://www.hackingyseguridad.com/
 #
-
-- Repositorio mantenido por [hackingyseguridad](https://github.com/hackingyseguridad) — [hackingyseguridad.com](http://www.hackingyseguridad.com/)
-- `colpasoarp.sh` incluye crédito original a *Antonio Taboada (2018)*.
