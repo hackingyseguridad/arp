@@ -1,4 +1,4 @@
-# ARP — Herramientas de ARP Spoofing y Análisis de Red
+### ARP — Herramientas de ARP spoofing y análisis de Red
 
 ![Shell](https://img.shields.io/badge/Shell-37.1%25-89e051)
 ![Python](https://img.shields.io/badge/Python-62.9%25-3572A5)
@@ -6,11 +6,11 @@
 
 Colección de scripts en **Bash** y **Python** para practicar y entender técnicas de **ARP Spoofing (envenenamiento ARP)**, cambio de dirección MAC, escaneo de red y ataques de tipo Man-in-the-Middle (MITM) a nivel de capa de enlace. Pensado como material didáctico para pruebas en **entornos de laboratorio controlados**.
 
-> 🌐 Más recursos en [hackingyseguridad.com](http://www.hackingyseguridad.com/)
+>  Más recursos en [hackingyseguridad.com](http://www.hackingyseguridad.com/)
 
 ---
 
-## 📑 Índice
+### Índice
 
 1. [Aviso legal y ético](#-aviso-legal-y-ético)
 2. [Fundamentos: ¿qué es ARP Spoofing?](#-fundamentos-qué-es-arp-spoofing)
@@ -27,7 +27,7 @@ Colección de scripts en **Bash** y **Python** para practicar y entender técnic
 
 ---
 
-## ⚠️ Aviso legal y ético
+### Aviso legal y ético
 
 Estas herramientas manipulan el protocolo ARP para interceptar o redirigir tráfico de red. Utilizarlas contra redes, dispositivos o personas **sin autorización explícita** puede constituir un delito (en España, entre otros, bajo los artículos del Código Penal relativos a delitos informáticos y de interceptación de comunicaciones).
 
@@ -42,7 +42,7 @@ El autor del repositorio y esta documentación **no se hacen responsables del ma
 
 ---
 
-## 📘 Fundamentos: ¿qué es ARP Spoofing?
+### ARP Spoofing
 
 El protocolo **ARP (Address Resolution Protocol)** traduce direcciones IP a direcciones MAC dentro de una red local. No incluye ningún mecanismo de autenticación, por lo que un atacante puede enviar respuestas ARP falsas (*ARP spoofing* o *ARP poisoning*) para que otros equipos actualicen su tabla ARP con una MAC incorrecta.
 
@@ -56,7 +56,7 @@ El protocolo **ARP (Address Resolution Protocol)** traduce direcciones IP a dire
 
 ---
 
-## 🗂 Estructura del repositorio
+### Estructura del repositorio
 
 | Archivo | Lenguaje | Tipo de técnica | Descripción breve |
 |---|---|---|---|
@@ -70,7 +70,7 @@ El protocolo **ARP (Address Resolution Protocol)** traduce direcciones IP a dire
 
 ---
 
-## 🧰 Requisitos previos
+### Requisitos
 
 | Herramienta | Instalación (Debian/Ubuntu/Kali) | Usada por |
 |---|---|---|
@@ -81,11 +81,11 @@ El protocolo **ARP (Address Resolution Protocol)** traduce direcciones IP a dire
 | `iproute2` (ip) | Incluido por defecto en la mayoría de distros | `colpasoarp.sh`, `cambiarmac.sh` |
 | `macchanger` (opcional) | `sudo apt-get install macchanger` | Alternativa mencionada en `cambiarmac.sh` |
 
-> 🔑 Casi todos los scripts requieren **privilegios de root**, ya que manipulan interfaces de red, tablas ARP y el reenvío de paquetes IP (`ip_forward`).
+>  Casi todos los scripts requieren **privilegios de root**, ya que manipulan interfaces de red, tablas ARP y el reenvío de paquetes IP (`ip_forward`).
 
 ---
 
-## ⚙️ Instalación
+### Instalación
 
 ```bash
 git clone https://github.com/hackingyseguridad/arp.git
@@ -101,9 +101,9 @@ sudo pip2 install scapy
 
 ---
 
-## 📖 Guía de uso por script
+### uso
 
-### 🔹 `arpspoof.sh` — Spoofing ARP bidireccional
+###  `arpspoof.sh` — Spoofing ARP bidireccional
 
 Activa el reenvío de IP y lanza dos procesos `arpspoof` en paralelo para envenenar simultáneamente a la víctima y a la puerta de enlace, colocando el equipo atacante en medio del tráfico.
 
@@ -115,7 +115,7 @@ sudo ./arpspoof.sh eth0 192.168.1.252 192.168.1.250
 
 Pulsa cualquier tecla para detener el ataque; el script mata los procesos y restaura `ip_forward` a `0`.
 
-### 🔹 `mitm.py` — MITM manual con Scapy
+###  `mitm.py` — MITM manual con Scapy
 
 Descubre la MAC de la víctima y de la puerta de enlace (resolviendo la IP pública de `www.google.com` vía ICMP), y después envía paquetes ARP falsificados a ambas partes en bucle, activando `ip_forward` para mantener la conectividad.
 
@@ -126,7 +126,7 @@ sudo python2 mitm.py
 
 > Requiere editar manualmente `my_ip` y `my_mac` en el script para adaptarlos a tu interfaz.
 
-### 🔹 `gratuitousarp.py` — Gratuitous ARP en bucle
+###  `gratuitousarp.py` — Gratuitous ARP en bucle
 
 Envía de forma continua paquetes ARP "gratuitous" (no solicitados) usando Scapy. Útil para forzar la actualización de tablas ARP en la red o para pruebas de detección de IDS/ARPwatch.
 
@@ -134,7 +134,7 @@ Envía de forma continua paquetes ARP "gratuitous" (no solicitados) usando Scapy
 sudo python2 gratuitousarp.py
 ```
 
-### 🔹 `flood.py` — Inundación ARP dirigida
+###  `flood.py` — Inundación ARP dirigida
 
 Solicita interactivamente la interfaz de red y la IP objetivo, detecta automáticamente la puerta de enlace y la MAC local, y envía paquetes ARP cada 0.5 segundos de forma indefinida.
 
@@ -144,7 +144,7 @@ sudo python2 flood.py
 # Input target IP: 192.168.1.50
 ```
 
-### 🔹 `colpasoarp.sh` — Entrada ARP con IP aleatoria
+###  `colpasoarp.sh` — Entrada ARP con IP aleatoria
 
 Genera una dirección IP aleatoria válida (excluyendo multicast, redes privadas típicas y direcciones reservadas) y añade una entrada estática a la tabla ARP local (`ip neigh`) asociándola a una MAC ficticia.
 
@@ -152,7 +152,7 @@ Genera una dirección IP aleatoria válida (excluyendo multicast, redes privadas
 sudo ./colpasoarp.sh
 ```
 
-### 🔹 `cambiarmac.sh` — Cambio de dirección MAC
+###  `cambiarmac.sh` — Cambio de dirección MAC
 
 Desactiva la interfaz `eth0`, le asigna una nueva MAC y la muestra por pantalla. El propio script documenta como comentario dos métodos alternativos: `macchanger` y `ip link set`.
 
@@ -160,9 +160,9 @@ Desactiva la interfaz `eth0`, le asigna una nueva MAC y la muestra por pantalla.
 sudo ./cambiarmac.sh
 ```
 
-> ✏️ Edita la variable de MAC (`00:e0:4c:53:44:58`) y el nombre de interfaz dentro del script antes de ejecutarlo.
+>  Edita la variable de MAC (`00:e0:4c:53:44:58`) y el nombre de interfaz dentro del script antes de ejecutarlo.
 
-### 🔹 `scanmac.sh` — Escaneo de IP/MAC en la red
+###  `scanmac.sh` — Escaneo de IP/MAC en la red
 
 Ejecuta un `nmap -sn` (ping scan) sobre un rango de IPs y muestra en formato `IP => MAC` todos los hosts detectados, ordenados alfabéticamente.
 
@@ -172,7 +172,7 @@ sudo ./scanmac.sh 192.168.1.0/24
 
 ---
 
-## 📊 Tabla comparativa de scripts
+### Tabla comparativa de scripts
 
 | Script | Requiere root | Interactivo | Modifica `ip_forward` | Riesgo de interrupción de red |
 |---|:---:|:---:|:---:|:---:|
@@ -186,7 +186,7 @@ sudo ./scanmac.sh 192.168.1.0/24
 
 ---
 
-## 🛡 Detección y contramedidas
+### Detección y contramedidas
 
 | Técnica de detección | Descripción |
 |---|---|
@@ -201,7 +201,7 @@ Señales típicas de un ataque en curso: pérdida intermitente de conectividad, 
 
 ---
 
-## 🧩 Limitaciones conocidas
+### Limitaciones conocidas
 
 - **Python 2 obsoleto:** `mitm.py` y `flood.py` usan `raw_input()` y el módulo `commands` (eliminado en Python 3). Requieren Python 2, que ya no recibe soporte oficial; se recomienda migrarlos a Python 3 con `input()` y `subprocess`.
 - **IPs/MACs codificadas:** `mitm.py` contiene valores de ejemplo (`my_ip`, `my_mac`) que deben editarse manualmente para cada entorno.
@@ -211,25 +211,9 @@ Señales típicas de un ataque en curso: pérdida intermitente de conectividad, 
 
 ---
 
-## ✅ Buenas prácticas de laboratorio
-
-1. Usa siempre una **red virtual aislada** (VirtualBox/VMware en modo "solo anfitrión" o una VLAN de pruebas dedicada).
-2. Documenta la MAC/IP originales antes de modificarlas para poder revertir los cambios.
-3. Restaura `ip_forward` a `0` y elimina entradas ARP manuales al terminar las pruebas.
-4. No ejecutes estos scripts en redes compartidas (Wi-Fi de coworking, universidad, empresa) sin autorización expresa.
-
----
-
-## 🤝 Contribuciones
-
-Las *pull requests* son bienvenidas, especialmente para:
-- Migrar los scripts Python 2 a Python 3.
-- Añadir manejo de errores y validación de argumentos.
-- Incorporar detección automática de interfaz/gateway.
-
----
-
-## 👤 Autor y créditos
+#
+http://www.hackingyseguridad.com/
+#
 
 - Repositorio mantenido por [hackingyseguridad](https://github.com/hackingyseguridad) — [hackingyseguridad.com](http://www.hackingyseguridad.com/)
 - `colpasoarp.sh` incluye crédito original a *Antonio Taboada (2018)*.
